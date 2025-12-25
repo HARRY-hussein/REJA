@@ -3,33 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>REJA</title>
+    <title>Project -> REJA</title>
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
   </head>
-  <body style="background-color: bisque">
+
+  <body style="background-color: #b8bbd1">
     <div class="container">
-      <h1 class="display-4 text-center py-1">Reja va maqsadlar</h1>
-      <div class="jumbotron p-3 shadow-sm">
+      <h1 class="display-4 text-center py-5 dt">REJA VA MAQSADLAR</h1>
+      <div
+        class="jumbotron p-3 shadow-sm"
+        style="background-color: #ffff; border-radius: 10px"
+        ;
+      >
         <form id="create-form" action="/create-item" method="POST">
           <div class="d-flex align-items-center">
             <input
-              id="create-field"
               name="item"
+              type="text"
               autofocus
               autocomplete="off"
               class="form-control mr-3"
-              type="text"
               style="flex: 1"
             />
-            <button class="btn btn-primary" style="border-radius: 20px">
-              Yangi Harid Qo'shish
+            <button class="m-4 btn btn-primary" style="border-radius: 20px">
+              Yangi Xarid Qo'shing
             </button>
           </div>
+          <button class="m-4 btn btn-danger" style="border-radius: 20px">
+            Hammasini o'chirish
+          </button>
         </form>
       </div>
     </div>
