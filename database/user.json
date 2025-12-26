@@ -1,0 +1,39 @@
+{
+  "name": "HARRY",
+  "profession": "Software Engineer: Junior",
+  "age": 22,
+  "residence": "South Korea",
+  "adress": "South Korea, Busan",
+  "languages": ["Uzbek", "Korean", "English", "Arabic", "Russian", "Turkish"],
+  "skills": ["Html", "CSS", "Js", "NodeJS"],
+  "extra_skills": ["Bootstrap, Materialize", "Styling, Sass", "GIT Knowledge"],
+  "work_place": "IT Company",
+  "service_des": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat",
+  "about_me": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, volutpat feugiat placerat lobortis. Natoq",
+  "city": "Kokand",
+  "title": ["Flower", "Seedlings", "Gardner", "Old", "New"],
+  "flower _desc": [ "What is a Flower?", "What is a Seedling?", "Who is Gardner?" ],
+  "flower_name": [
+    "Cherry",
+    "Tulip",
+    "Sunflower",
+    "Daffodil",
+    "Poppy",
+    "Bluebell",
+    "Rose",
+    "blossom"
+  ],
+  "flower_price": [
+    "$15",
+    "$25",
+    "$12",
+    "$20",
+    "$35",
+    "$30",
+    "$22",
+    "$19",
+    "$9"
+  ],
+  "famous_words": ["World is Beautiful with Flowers"],
+  "famous _name": ["hussein"]
+}
