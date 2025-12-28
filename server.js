@@ -1,8 +1,9 @@
 // EJS Frameworkda Portfolio publishing qilamiz!
+// BSSR (Backend Server-Side Rendering) & SPA (Single Page Application)
 
 console.log("Web Serverni boshlanishi");
 const express = require("express");
-const app = express();
+const app = express(); // function
 const http = require("http");
 const fs = require("fs"); // j.son formatdagi ma'lumotlarni to'g'ridan-to'g'ri olib kela olmaymiz; fileSystem (core package)
 const { error } = require("console");
@@ -14,14 +15,14 @@ fs.readFile("database/user.json", "utf-8", (err, data) => {
   if (err) {
     console.log("ERROR:", err);
   } else {
-    user = JSON.parse(data); // json va uni ichidagi fs o'qigan ma'lumotni .json formatdan objectga parse qilyapmiz  JSON -> "name": "Harry" vs. OBJECT -> name: "Harry"
+    user = JSON.parse(data); // json papkadagi fs o'qigan ma'lumotni .json formatdan objectga parse qilyapmiz  JSON -> "name": "Harry" vs. OBJECT -> name: "Harry"
   }
 });
 
 // 1 ->Expressga kirib kelayotgan ma'lumotga bog'liq kodlar
 app.use(express.static("public")); //clientlarga public folderni ochiq qilib beradi.
 app.use(express.json()); // kirib kelayotgan json formatdagi datani objectga o'zgartirib beradi
-app.use(express.urlencoded({ extended: true })); //HTMLdan traditional request formdan nimadir post qilsak express qabul qilib serverga kiritadi
+app.use(express.urlencoded({ extended: true })); //HTMLdagi traditional request formdan nimadir post qilsak express qabul qilib serverga kiritadi
 
 // 2 -> Sessionga bog'liq ma'lumotlar
 // 3 -> Express uchun BSSR (Backendda view (Frontend) yasaymiz)
@@ -34,7 +35,7 @@ app.post("/create-item", (req, res) => {
   res.json({ test: "success" });
 });
 
-// -----------  STEP 2 -----------
+// -----------  STEP 1 -----------
 app.get("/author", (req, res) => {
   // get -> link; req & res
   res.render("author", { user: user }); // res.render -> author ejs page;  user -> publishing (page'imiz) uchun kerak bo'ladigan ma'lumot manbayi.
@@ -60,11 +61,4 @@ const server = http.createServer(app); // createServer - bu method bitta paramet
 let PORT = 3000;
 server.listen(PORT, function () {
   console.log(`The server is running successfully on port: ${PORT}`);
-});
-
-process.on("SIG", () => {
-  server.close(() => {
-    console.log("server closed");
-    process.exit(0);
-  });
 });
