@@ -15,8 +15,11 @@ mongodb.connect(
     if (err) console.log("ERROR on connection with MongoDB");
     else {
       console.log("Successfully connected to MongoDB");
-      module.exports = client;
-      
+      db = client.db();
+      module.exports = {
+        db: () => db,
+      };
+
       const app = require("./app");
       const server = http.createServer(app); // createServer - bu method bitta parameterni - app - qabul qiladi.
       let PORT = 3000;

@@ -4,7 +4,7 @@
 console.log("Web Serverni boshlanishi");
 
 // MongoDB connection
-const db = require("./server").db();
+const db = require("./server").db(); // dbdan foydalangan holda MongoDB bilan crud operatsiyani amalga oshiramiz
 
 // 1 -> Kirish qismi
 const express = require("express");
@@ -34,18 +34,43 @@ app.set("view engine", "ejs"); //EJS - Backendda HTML frontendni yasaymiz
 
 // 4 -> Routing qismi
 app.post("/create-item", (req, res) => {
-  console.log(req.body);
-  res.json({ test: "success" });
+  console.log("User entered /create-item");
+  // console.log(req.body); // requestni body qismini tekshirish
+  const new_reja = req.body.reja; // req.body qismidan kelgan reja
+  db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.end("Something went wrong!");
+    } else {
+      res.end("Successfully added");
+    }
+  }); // reja yani user kiritadigan infoni databasega yozamiz. MongoDB documentationdan insertOne(ikkita parameterga ega) orqali
+  // reja (fileName) : reja (req.bodyni ichida kelgan reja line 38)
+  // res.end("success"); // test: server ma'lumotni kelishini kutib o'tirmaydi, userga tezda "success" ni yuboradi
+  // res.json({ test: "success" });
 });
 
 // -----------  STEP 1 -----------
-app.get("/author", (req, res) => {
-  // get -> link; req & res
-  res.render("author", { user: user }); // res.render -> author ejs page;  user -> publishing (page'imiz) uchun kerak bo'ladigan ma'lumot manbayi.
-});
+// app.get("/author", (req, res) => {
+//   // get -> link; req & res
+//   res.render("author", { user: user }); // res.render -> author ejs page;  user -> publishing (page'imiz) uchun kerak bo'ladigan ma'lumot manbayi.
+// });
 
 app.get("/", function (req, res) {
-  res.render("reja");
+  console.log("User entered /");
+  db.collection("plans") // saytimizdga kirsak shu yerga keladi va shu yerdagi infolarni o'qiydi   monggoDB documentation: collection, find, to array
+    .find() // topadi
+    .toArray((err, data) => {
+      // 3 line: rejani databsega yozish kodi: plans ichidan info izlab array qilib ber. Array function 2 ta narsani qaytaradi
+      // va ularni calback function orqali kirityapmiz
+      if (err) {
+        console.log(err);
+        res.end("Something went wrong"); // Userga response: xato bo'lsa, kuttirmay tezda response jo'natsin
+      } else {
+        // console.log(data); // MongoDB o'qilganda callbackdan data kelgan paytini log orqali chiqarib olyapmiz
+        res.render("reja", { items: data }); // o'sha datani ejs ichiga paste qilish: data olib kelayotganda reja fileda ma'lumotni olib kelsin
+      }
+    });
 });
 
 module.exports = app;
@@ -61,4 +86,3 @@ module.exports = app;
 // app.get("/gift", function (req, res) {
 //   res.end(`<h1 style="background:green"> Siz sovg'alar bo'limidasiz</h1>`); // /hello; /gift - shu kabi bir nechta addresslarni shakllantira olaman
 // });
-
