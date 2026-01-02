@@ -38,12 +38,16 @@ app.post("/create-item", (req, res) => {
   // console.log(req.body); // requestni body qismini tekshirish
   const new_reja = req.body.reja; // req.body qismidan kelgan reja
   db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
+    console.log(data.ops)
+    res.json(data.ops[0]);
+    /* this was traditional method, but we changed to the modern method on browser.js, so both should combine 
     if (err) {
       console.log(err);
       res.end("Something went wrong!");
     } else {
       res.end("Successfully added");
     }
+    */
   }); // reja yani user kiritadigan infoni databasega yozamiz. MongoDB documentationdan insertOne(ikkita parameterga ega) orqali
   // reja (fileName) : reja (req.bodyni ichida kelgan reja line 38)
   // res.end("success"); // test: server ma'lumotni kelishini kutib o'tirmaydi, userga tezda "success" ni yuboradi
