@@ -5,6 +5,7 @@ console.log("Web Serverni boshlanishi");
 
 // MongoDB connection
 const db = require("./server").db(); // dbdan foydalangan holda MongoDB bilan crud operatsiyani amalga oshiramiz
+const mongodb = require("mongodb");
 
 // 1 -> Kirish qismi
 const express = require("express");
@@ -38,7 +39,7 @@ app.post("/create-item", (req, res) => {
   // console.log(req.body); // requestni body qismini tekshirish
   const new_reja = req.body.reja; // req.body qismidan kelgan reja
   db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
-    console.log(data.ops)
+    console.log(data.ops);
     res.json(data.ops[0]);
     /* this was traditional method, but we changed to the modern method on browser.js, so both should combine 
     if (err) {
@@ -52,6 +53,18 @@ app.post("/create-item", (req, res) => {
   // reja (fileName) : reja (req.bodyni ichida kelgan reja line 38)
   // res.end("success"); // test: server ma'lumotni kelishini kutib o'tirmaydi, userga tezda "success" ni yuboradi
   // res.json({ test: "success" });
+});
+
+app.post("/delete-item", (req, res) => {
+  const id = req.body.id;
+  db.collection("plans").deleteOne(
+    { _id: new mongodb.ObjectId(id) },
+    function (err, data) {
+      res.json({ state: "success" });
+    }
+  );
+  // console.log(id);
+  // res.end("Done!");
 });
 
 // -----------  STEP 1 -----------

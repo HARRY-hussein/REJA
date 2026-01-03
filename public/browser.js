@@ -29,10 +29,40 @@ document.getElementById("create-form").addEventListener("submit", function (e) {
       document
         .getElementById("item-list")
         .insertAdjacentHTML("beforeend", itemTemplate(response.data));
-        createField.value = "";
-        createField.focus();
+      createField.value = "";
+      createField.focus();
     })
     .catch((error) => {
-        console.log("Please try again!");
+      console.log("Please try again!");
     });
+});
+
+document.addEventListener("click", function (e) {
+  // delete operation
+  console.log(e.target);
+  if (e.target.classList.contains("delete-me")) {
+    // alert("You pressed the button DELETE!");
+    if (confirm("Are you really sure to delete?")) {
+      axios
+        .post("/delete-item", { id: e.target.getAttribute("data-id") })
+        .then((response) => {
+          console.log(response.data);
+          e.target.parentElement.parentElement.remove();
+        })
+        .catch((error) => {
+          console.log("Please try again!");
+        });
+    }
+
+    //         {
+    //     alert("Answered: YES!");
+    //   } else {
+    //     alert("Answered: NO!");
+    //   }
+  }
+
+  // edit operation
+  if (e.target.classList.contains("edit-me")) {
+    // alert("You pressed the EDIT button!");
+  }
 });
