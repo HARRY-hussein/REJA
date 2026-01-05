@@ -4,7 +4,7 @@ function itemTemplate(item) {
   return `<li
           class="list-group-item list-group-item-info d-flex align-items-center justify-content-between">
           <span class="item-text">${item.reja}</span>
-          <div>
+          <div> 
             <button
               data-id="${item._id}"
               class="edit-me btn btn-secondary btn-sm mr-1">
@@ -42,7 +42,11 @@ document.addEventListener("click", function (e) {
   console.log(e.target);
   if (e.target.classList.contains("delete-me")) {
     // alert("You pressed the button DELETE!");
-    if (confirm("Are you really sure to delete?")) {
+    let itemName =
+      e.target.parentElement.parentElement.querySelector(
+        ".item-text"
+      ).innerHTML;
+    if (confirm(`Are you really sure to delete ${itemName}?`)) {
       axios
         .post("/delete-item", { id: e.target.getAttribute("data-id") })
         .then((response) => {
@@ -53,7 +57,6 @@ document.addEventListener("click", function (e) {
           console.log("Please try again!");
         });
     }
-
     //         {
     //     alert("Answered: YES!");
     //   } else {
@@ -64,5 +67,33 @@ document.addEventListener("click", function (e) {
   // edit operation
   if (e.target.classList.contains("edit-me")) {
     // alert("You pressed the EDIT button!");
+    let userInput = prompt(
+      "O'zgartirishni kiriting.",
+      e.target.parentElement.parentElement.querySelector(".item-text").innerHTML
+    );
+    if (userInput) {
+      console.log(userInput);
+      axios
+        .post("/edit-item", {
+          id: e.target.getAttribute("data-id"),
+          new_input: userInput,
+        })
+        .then((response) => {
+          console.log(response.data);
+          e.target.parentElement.parentElement.querySelector(
+            ".item-text"
+          ).innerHTML = userInput;
+        })
+        .catch((error) => {
+          console.log("Please try again later!");
+        });
+    }
   }
+});
+
+document.getElementById("clean-all").addEventListener("click", function () {
+  axios.post("/delete-all", { delete_all: true }).then((response) => {
+    alert(response.data.state);
+    document.location.reload();
+  });
 });
