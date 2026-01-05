@@ -170,3 +170,56 @@ maslahatBering(65, (err, data) => {
 });
 console.log("Passed here 1");
 */
+
+
+
+
+/*
+server.js vazifasi
+server ishga tushadi
+portni tinglaydi
+backend start bo‘ladi
+
+✔️ Express — request/response engine
+Express req / res ni qabul qiladi
+yo‘naltiradi (routing)
+logika shu yerda ishlaydi
+
+✔️ MongoDB server ishga tushganda ulanadi
+mongodb.connect() server start vaqtida ishlaydi
+MongoDB backend bilan bog‘lanadi
+
+✔️ require("./app")
+Express ilovasi serverga “olib kelinadi”
+Express ichidagi route’lar ishlay boshlaydi
+
+✔️ Express DB bilan ishlay oladi
+Ya'ni backend db yani databaasega access ola olishi uchun ham 
+birinchi mongodb ishga tushishi kerak. Avval mongodb ishga tushadi 
+keyin backendga db bilan ishlash accessini beradi
+
+Express route’lar db orqali
+MongoDB’dagi data bilan ishlaydi
+Backend MongoDB serverga tarmoq orqali ulanadi
+Express → db obyektni require() orqali oladi
+
+server.js serverni ishga tushiradi.
+Express — so‘rovlarni boshqaradi.
+MongoDB — alohida server.
+Backend MongoDB’ga ulanadi va db orqali ishlaydi.
+Express shu db dan foydalanib so‘rovlarga javob beradi.
+
+*/
+/*
+data-id="<%=item._id%>" => app.jda items nomi ostida ma'lumotlarni yuborgandik, 
+ ularni html o'qib ola olishi uchun shu sintaksisdan foydalanamiz
+ <%= items[0].reja %> items ichida ko‘p ma’lumot bor. Lekin faqat birinchi element olinadi
+Shu birinchi element ichidagi reja maydoni ekranga chiqariladi 
+items = []
+  { reja: "Bugun o‘qiyman" }
+   aynan shu reja.ejs yuqoridagi kod orqali user kiritgan malumotni aynan statement qismini,
+   idsini emas, sitega form korinishida chiqarib beradi
+   = bor bo‘lsa → natija HTML’ga chiqariladi, shunga o'xshab: { reja: "Bugun o‘qiyman" }
+   = bo‘lmasa → faqat JS kodi backgroundda ishlaydi, lekin natija interfacega chiqmasligi kerak.
+   <% items.map(function(item)) { %>
+*/

@@ -20,6 +20,7 @@
         style="background-color: #ffff; border-radius: 10px"
         ;
       >
+        <!-- user jumla kiritadi, reja nomi ostida saqlanadi, yani user jumlani form(create-form)ga yozib, enter(POST) bosganda, /create-itemga joylaydi-->
         <form id="create-form" action="/create-item" method="POST">
           <div class="d-flex align-items-center">
             <input
@@ -62,11 +63,15 @@
         <% }) %>
       </ul>
 
-      <button class="m-4 btn btn-danger" style="border-radius: 20px">
+      <button
+        id="clean-all"
+        class="m-4 btn btn-danger"
+        style="border-radius: 20px"
+      >
         Barcha rejalarni o'chirish
       </button>
     </div>
-    
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/browser.js"></script>
   </body>
