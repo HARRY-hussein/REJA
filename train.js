@@ -1,9 +1,22 @@
-// ------------- MIT C TASK -------------
+// ------------- MIT D TASK -------------
+/* Shart: Shunday function tuzing, u bitta string argumentni qabul qilib osha stringni teskari qilib return qilsin.
+MASALAN: getReverse("hello") return qilsin "olleh"
+*/
+function getReverse(word) {
+  if (typeof word !== "string") {
+    return "String kiriting!";
+  }
+  return word.split("").reverse().join("");
+}
+console.log(getReverse("hello"));
+
+// ------------- MIT D TASK -------------
 /* Shart: Shunday function tuzing, u 2ta string parametr ega bolsin, hamda 
 agar har ikkala string bir hil harflardan iborat bolsa true aks holda false qaytarsin
 
 MASALAN checkContent("mitgroup", "gmtiprou") return qiladi true;
 */
+/*
 function checkContent(a, b) {
   if (a.length !== b.length) return false;
 
@@ -17,7 +30,7 @@ function checkContent(a, b) {
 }
 
 console.log(checkContent("hcbcw", "wcjiwc"));
-
+*/
 // ------------- MIT C TASK -------------
 /* Shart:
 Shunday class tuzing tuzing nomi Shop, va uni constructoriga 3 hil mahsulot pass bolsin, 
