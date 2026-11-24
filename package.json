@@ -4,8 +4,8 @@
   "description": "bu bizning ilk loyihamiz",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node --env-file=.env server.js",
+    "dev": "nodemon --exec 'node --env-file=.env' server.js",
     "practice": "nodemon practice.js",
     "train": "nodemon train.js",
     "test": "echo \"Error: no test specified\" && exit 1"
