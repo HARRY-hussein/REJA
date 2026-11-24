@@ -1,3 +1,4 @@
+/*
 // < ------------------- 21. Event Loop va Callback functions ------------------- >
 
 console.log("Jack Ma maslahatlari");
@@ -222,4 +223,12 @@ items = []
    = bor bo‘lsa → natija HTML’ga chiqariladi, shunga o'xshab: { reja: "Bugun o‘qiyman" }
    = bo‘lmasa → faqat JS kodi backgroundda ishlaydi, lekin natija interfacega chiqmasligi kerak.
    <% items.map(function(item)) { %>
+*/
+
+/*
+1. nimani tanishamiz?
+3. delete va edit buttonlarini qo'lga olamiz (reja 57 line)
+2. har bir kirib kelayotgan data uchun idni berib olamiz (reja 56)
+4. aynan qaysi button bosilganini aniqlaymiz (browser.js 24)
+5. button bosilsa alert chiqadi (browser.js 45 va 70)
 */

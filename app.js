@@ -25,7 +25,7 @@ fs.readFile("database/user.json", "utf-8", (err, data) => {
 // Expressga kirib kelayotgan ma'lumotga bog'liq kodlar
 app.use(express.static("public")); //clientlarga public folderni ochiq qilib beradi.
 app.use(express.json()); // kirib kelayotgan json formatdagi datani objectga o'zgartirib beradi
-app.use(express.urlencoded({ extended: true })); //HTMLdagi traditional request formdan nimadir post qilsak express qabul qilib serverga kiritadi
+// app.use(express.urlencoded({ extended: true })); //HTMLdagi traditional request formdan nimadir post qilsak express qabul qilib serverga kiritadi
 
 // 2 -> Session qismi: Sessionga bog'liq ma'lumotlar
 // 3 -> Views qismi: Express uchun BSSR (Backendda view (Frontend) yasaymiz)
@@ -61,14 +61,16 @@ app.post("/create-item", (req, res) => {
 });
 
 app.post("/delete-item", (req, res) => {
-  const id = req.body.id;
-  db.collection("plans").deleteOne(
-    { _id: new mongodb.ObjectId(id) },
+  const id = req.body.id; // o'chirmoqchi bo'lgan element idni ni req.body dan qabul qilib olamiz
+  db.collection("plans").deleteOne( // MongoDB documentationdan deleteOne orqali o'chiramiz
+    { _id: new mongodb.ObjectId(id) }, // aynan qaysi elementligini id orqali aniqlashtirib olamiz
+    // mongodb faqat qiymatni emas, uning typeini ham tekshiradi
+    // kirib kelayotgan id string ko'rinishida, lekin MongoDBdagi id ObjectId ko'rinishida, shuning uchun new mongodb.ObjectId(id) orqali uni ObjectId ga o'zgartirib olamiz
     function (err, data) {
       res.json({ state: "success" });
-    }
+    },
   );
-  // console.log(id);
+  // console.log(id); // test uchun aynan qaysi id kelayotganini tekshirib ko'ramiz
   // res.end("Done!");
 });
 
@@ -81,12 +83,13 @@ app.post("/delete-item", (req, res) => {
 app.post("/edit-item", (req, res) => {
   const data = req.body;
   console.log(data);
-  db.collection("plans").findOneAndUpdate(
+  // res.end("Done!");
+  db.collection("plans").findOneAndUpdate( 
     { _id: new mongodb.ObjectId(data.id) },
-    { $set: { reja: data.new_input } },
+    { $set: { reja: data.new_input } }, // yangi o'zgartirilgan qiymatni databasedagi reja maydoniga set qilamiz
     function (err, data) {
-      res.json({ state: "success" });
-    }
+      res.json({ state: "success" }); // or res.end res.send
+    },
   );
 });
 

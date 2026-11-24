@@ -22,6 +22,7 @@ function itemTemplate(item) {
 let createField = document.getElementById("create-field");
 
 document.getElementById("create-form").addEventListener("submit", function (e) {
+  // console.log(e); e.target.classList ichidagi aynan biz bosgan button classini korsatadi. line 44 da ishlatamiz
   e.preventDefault();
   axios
     .post("/create-item", { reja: createField.value })
@@ -37,21 +38,25 @@ document.getElementById("create-form").addEventListener("submit", function (e) {
     });
 });
 
+// delete operation
 document.addEventListener("click", function (e) {
-  // delete operation
-  console.log(e.target);
+  // parameter - aynan nima bosilganini aniqlash uchun
+  console.log(e);
   if (e.target.classList.contains("delete-me")) {
-    // alert("You pressed the button DELETE!");
+    // 'e'dagi target ichidagi classList da delete-me classi bormi, bo'lsa alert
+    alert("You pressed the button DELETE!");
     let itemName =
       e.target.parentElement.parentElement.querySelector(
-        ".item-text"
-      ).innerHTML;
+        ".item-text",
+      ).innerHTML; // o'chirilayotgan elementni aynan nomini olamiz
     if (confirm(`Are you really sure to delete ${itemName}?`)) {
-      axios
-        .post("/delete-item", { id: e.target.getAttribute("data-id") })
+      // confirm browserga tegishli javascript bn birga ishlaydi
+      axios // Line 63: delete qilish uchun axios.post orqali serverga request yuboramiz
+        .post("/delete-item", { id: e.target.getAttribute("data-id") }) // aynan qaysi id dagi elementni o'chirish kerak
         .then((response) => {
-          console.log(response.data);
-          e.target.parentElement.parentElement.remove();
+          console.log(response.data); // app.js dagi res.json ni console ga chiqaradi: state: "success"
+          e.target.parentElement.parentElement.remove(); // DOM(Document Object Model) dan o'chirish.
+          // nega ikkita parentElement? faqat yozuvni emas, balki butun qatorni o'chirish
         })
         .catch((error) => {
           console.log("Please try again!");
@@ -65,24 +70,29 @@ document.addEventListener("click", function (e) {
   }
 
   // edit operation
-  if (e.target.classList.contains("edit-me")) {
-    // alert("You pressed the EDIT button!");
+  if (e.target.classList.contains("edit-me")) { // delete kabi
+    alert("You pressed the EDIT button!");
     let userInput = prompt(
-      "O'zgartirishni kiriting.",
-      e.target.parentElement.parentElement.querySelector(".item-text").innerHTML
+      // PROMPT browserga tegishli javascript bn birga ishlaydi
+      "O'zgartirishni kiriting:",
+      e.target.parentElement.parentElement.querySelector(".item-text") // o'zgartirayotganda eski qiymat input maydonida tursin
+        .innerHTML, // aynan textni olamiz
     );
     if (userInput) {
-      console.log(userInput);
-      axios
+      console.log(userInput); // test: user yangi o'zgartirgan input nomini console ga chiqaradi
+      axios // axios orqali BACKENDGA yangi qiymatni yuboramiz
         .post("/edit-item", {
           id: e.target.getAttribute("data-id"),
-          new_input: userInput,
+          new_input: userInput, // yangi qiymatni new_input nomi bilan yuboramiz
         })
-        .then((response) => {
+        .then((response) => { 
           console.log(response.data);
-          e.target.parentElement.parentElement.querySelector(
-            ".item-text"
-          ).innerHTML = userInput;
+          // (85-90) database - frontend
+           e.target.parentElement.parentElement.querySelector(
+            // FRONTENDDA ham o'zgartirib qo'yamiz
+            ".item-text",
+          ).innerHTML = userInput; // BACKENDGA yuborilgan yangi qiymatni FRONTENDDA ham o'zgartirib qo'yamiz
+          //
         })
         .catch((error) => {
           console.log("Please try again later!");
@@ -92,8 +102,10 @@ document.addEventListener("click", function (e) {
 });
 
 document.getElementById("clean-all").addEventListener("click", function () {
+  // nega preventDefault ishlatilmayapti? chunki bu button form ichida emas. PreventDefault faqat form submit bo'lishini to'xtatadi
   axios.post("/delete-all", { delete_all: true }).then((response) => {
-    alert(response.data.state);
-    document.location.reload();
+    // { delete_all: true }) - shunchaki bajararilayotgan amalni secure qildik
+    alert(response.data.state); //
+    document.location.reload(); // biz turgan page ni reload qiladi, shunda bo'sh list chiqadi
   });
 });
